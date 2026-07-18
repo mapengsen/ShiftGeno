@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10261b">
+    <meta
+      name="description"
+      content="ShiftGeno is a compact visual DNA model for robust genomic prediction under distribution shifts."
+    >
+    <meta name="author" content="Anonymous submission">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ShiftGeno — Robust Genomic Prediction Under Distribution Shifts">
+    <meta
+      property="og:description"
+      content="Visual DNA modeling and invariant representation learning across low-similarity genomic distributions."
+    >
+    <meta
+      property="og:image"
+      content="https://mapengsen.github.io/ShiftGeno/assets/images/method-overview.png"
+    >
+    <meta property="og:url" content="https://mapengsen.github.io/ShiftGeno/">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://mapengsen.github.io/ShiftGeno/">
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <title>ShiftGeno | Robust Genomic Prediction Under Distribution Shifts</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header" data-header>
+      <nav class="nav container" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="ShiftGeno home">
+          <span class="brand-mark" aria-hidden="true">
+            <span>A</span><span>C</span><span>T</span><span>G</span>
+          </span>
+          <span>ShiftGeno</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+          data-nav-toggle
+        >
+          <span class="sr-only">Toggle navigation</span>
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-menu" id="primary-menu" data-nav-menu>
+          <a href="#motivation">Motivation</a>
+          <a href="#method">Method</a>
+          <a href="#benchmarks">Benchmarks</a>
+          <a href="#results">Results</a>
+          <a href="#analysis">Analysis</a>
+          <a class="button button-small button-dark" href="https://github.com/mapengsen/ShiftGeno">Code</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top">
+        <div class="hero-noise" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span></span> Visual DNA · Distribution Shift · Invariant Learning</p>
+            <h1>Toward Robust Genomic Prediction under Distribution Shifts via <em>Visual DNA Modeling</em></h1>
+            <p class="hero-lead">
+              <strong>ShiftGeno</strong> renders DNA as structured images and separates invariant biological
+              signals from distribution-specific shortcuts—delivering compact, reliable prediction on
+              low-similarity sequences.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://github.com/mapengsen/ShiftGeno">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.02c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.72 1.26 3.38.96.1-.75.4-1.26.74-1.55-2.57-.3-5.27-1.29-5.27-5.69 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.42-2.71 5.39-5.29 5.68.42.36.79 1.06.79 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+                View code
+              </a>
+              <a class="button button-ghost" href="#method">Explore the method <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="hero-meta" role="group" aria-label="Project metadata">
+              <span>Anonymous submission</span>
+              <span>2026</span>
+              <span>Open-source implementation</span>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal" data-delay="1" role="img" aria-label="DNA image representation illustration">
+            <div class="sequence-window">
+              <div class="window-bar">
+                <div><span></span><span></span><span></span></div>
+                <p>visual_dna / sample_042</p>
+                <span>256 × 256</span>
+              </div>
+              <div class="sequence-body">
+                <div class="sequence-grid" aria-hidden="true">
+                  <span class="base-a">A</span><span class="base-c">C</span><span class="base-t">T</span><span class="base-g">G</span><span class="base-g">G</span><span class="base-t">T</span><span class="base-a">A</span><span class="base-c">C</span>
+                  <span class="base-g">G</span><span class="base-a">A</span><span class="base-a">A</span><span class="base-t">T</span><span class="base-c">C</span><span class="base-g">G</span><span class="base-t">T</span><span class="base-a">A</span>
+                  <span class="base-t">T</span><span class="base-c">C</span><span class="base-g">G</span><span class="base-a">A</span><span class="base-t">T</span><span class="base-t">T</span><span class="base-c">C</span><span class="base-g">G</span>
+                  <span class="base-c">C</span><span class="base-g">G</span><span class="base-t">T</span><span class="base-a">A</span><span class="base-a">A</span><span class="base-c">C</span><span class="base-g">G</span><span class="base-t">T</span>
+                  <span class="base-a">A</span><span class="base-t">T</span><span class="base-c">C</span><span class="base-c">C</span><span class="base-g">G</span><span class="base-a">A</span><span class="base-t">T</span><span class="base-g">G</span>
+                  <span class="base-g">G</span><span class="base-c">C</span><span class="base-a">A</span><span class="base-t">T</span><span class="base-c">C</span><span class="base-t">T</span><span class="base-g">G</span><span class="base-a">A</span>
+                </div>
+                <div class="feature-card feature-invariant">
+                  <p>Invariant signal</p>
+                  <strong>z<sub>i</sub></strong>
+                  <div><span></span><span></span><span></span><span></span><span></span></div>
+                </div>
+                <div class="feature-card feature-spurious">
+                  <p>Spurious signal</p>
+                  <strong>z<sub>s</sub></strong>
+                  <div><span></span><span></span><span></span><span></span><span></span></div>
+                </div>
+                <div class="ratio-chip"><span>m</span> feature-wise allocation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container metric-strip reveal" data-delay="2">
+          <article>
+            <strong>0.532</strong>
+            <h2>Average MCC</h2>
+            <span>18 NT-DS tasks</span>
+          </article>
+          <article>
+            <strong>+16.4%</strong>
+            <h2>Relative gain</h2>
+            <span>over the next-best NT-DS model</span>
+          </article>
+          <article>
+            <strong>0.804</strong>
+            <h2>Average accuracy</h2>
+            <span>7 GB-DS tasks</span>
+          </article>
+          <article>
+            <strong>1.87M</strong>
+            <h2>Total parameters</h2>
+            <span>≈ 1/266 of NT-v2</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-light" id="motivation">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker"><span>01</span> Motivation</p>
+            <h2>Genomic deployment rarely stays <em>in distribution.</em></h2>
+            <p>
+              Models trained on one sequence length, species, or sequence source must often predict on another.
+              Random and chromosome-based splits can leave locally similar patterns on both sides of the split,
+              obscuring whether a model learned transferable biology or simply recognized familiar sequence context.
+            </p>
+          </div>
+
+          <figure class="paper-figure wide-figure reveal">
+            <button class="figure-button zoomable" type="button" data-full="assets/images/distribution-shifts.png" data-caption="Examples of real-world genomic distribution shifts across sequence length, species, and sequence origin.">
+              <img src="assets/images/distribution-shifts.png" alt="Examples of train-test distribution shifts in sequence length, species, and sequence origin" loading="lazy">
+              <span class="zoom-hint">Open figure</span>
+            </button>
+            <figcaption>
+              <span>Figure 1</span>
+              Distribution shifts appear when train and test DNA differ in length, species background, or origin.
+            </figcaption>
+          </figure>
+
+          <div class="shift-cards">
+            <article class="shift-card reveal">
+              <span class="card-index">01</span>
+              <h3>Measure the shift</h3>
+              <p>Rank samples by nearest-neighbor k-mer similarity rather than assuming the original split is challenging.</p>
+            </article>
+            <article class="shift-card reveal" data-delay="1">
+              <span class="card-index">02</span>
+              <h3>Change the representation</h3>
+              <p>Render one-dimensional DNA into a structured character-grid image with glyph-aligned visual tokens.</p>
+            </article>
+            <article class="shift-card reveal" data-delay="2">
+              <span class="card-index">03</span>
+              <h3>Separate signal from shortcut</h3>
+              <p>Allocate fused features into invariant and spurious components, then predict from the invariant branch.</p>
+            </article>
+          </div>
+
+          <aside class="abstract-card reveal">
+            <div>
+              <p class="mini-label">Abstract in brief</p>
+              <h3>A compact visual model for genuine low-similarity generalization.</h3>
+            </div>
+            <p>
+              ShiftGeno combines visual DNA modeling with invariant representation learning. A global stream and a
+              motif stream encode the rendered sequence; a feature-wise ratio allocator then disentangles stable
+              predictive evidence from variable background information. Across two reconstructed benchmarks, the
+              model improves average performance while using far fewer parameters than genomic foundation models.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="method">
+        <div class="container">
+          <div class="section-heading section-heading-light reveal">
+            <p class="section-kicker"><span>02</span> Method</p>
+            <h2>Read DNA as an image. <em>Learn what stays stable.</em></h2>
+            <p>
+              ShiftGeno preserves base order in a 256 × 256 character grid, extracts global and contiguous motif
+              evidence, and learns a complementary invariant–spurious feature allocation.
+            </p>
+          </div>
+
+          <figure class="paper-figure figure-on-dark reveal">
+            <button class="figure-button zoomable" type="button" data-full="assets/images/method-overview.png" data-caption="ShiftGeno architecture: visual DNA feature extraction followed by invariant and spurious feature disentanglement.">
+              <img src="assets/images/method-overview.png" alt="Overview of the ShiftGeno visual DNA modeling and feature disentanglement pipeline" loading="lazy">
+              <span class="zoom-hint">Open figure</span>
+            </button>
+            <figcaption>
+              <span>Figure 2</span>
+              The end-to-end ShiftGeno pipeline, from DNA rendering to invariant prediction.
+            </figcaption>
+          </figure>
+
+          <ol class="method-steps">
+            <li class="reveal">
+              <span>01</span>
+              <div>
+                <h3>Render &amp; tokenize</h3>
+                <p>Write bases into fixed cells, create 8 × 8 glyph patches, and preserve their sequence position.</p>
+              </div>
+            </li>
+            <li class="reveal" data-delay="1">
+              <span>02</span>
+              <div>
+                <h3>Fuse global &amp; motif context</h3>
+                <p>A six-layer Conv-Transformer captures broad context while multi-scale convolutions extract contiguous motifs.</p>
+              </div>
+            </li>
+            <li class="reveal" data-delay="2">
+              <span>03</span>
+              <div>
+                <h3>Disentangle &amp; predict</h3>
+                <p>A feature-wise ratio <i>m</i> creates complementary invariant and spurious branches; only the invariant branch predicts labels.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="method-specs reveal">
+            <div><span>Image</span><strong>256 × 256 RGB</strong></div>
+            <div><span>Tokens</span><strong>1,024 glyph patches</strong></div>
+            <div><span>Hidden size</span><strong>128 dimensions</strong></div>
+            <div><span>Motif kernels</span><strong>7 &amp; 8 bases</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tint" id="benchmarks">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker"><span>03</span> Benchmarks</p>
+            <h2>Low similarity is the <em>evaluation target,</em> not an accident.</h2>
+            <p>
+              NT-DS and GB-DS reconstruct established genomic benchmarks to explicitly hold out samples with the
+              lowest nearest-neighbor similarity while preserving the original DNA sequences and labels.
+            </p>
+          </div>
+
+          <div class="benchmark-layout">
+            <figure class="paper-figure reveal">
+              <button class="figure-button zoomable" type="button" data-full="assets/images/similarity-splits.png" data-caption="Mean nearest-neighbor similarity before and after constructing low-similarity NT-DS and GB-DS splits.">
+                <img src="assets/images/similarity-splits.png" alt="Bar charts comparing original and low-similarity train, validation, and test splits" loading="lazy">
+                <span class="zoom-hint">Open figure</span>
+              </button>
+              <figcaption>
+                <span>Figure 3</span>
+                Validation and test samples move to lower-similarity regions in both benchmark families.
+              </figcaption>
+            </figure>
+
+            <div class="benchmark-cards">
+              <article class="benchmark-card reveal" data-delay="1">
+                <div class="benchmark-head">
+                  <span>NT-DS</span>
+                  <strong>18</strong>
+                </div>
+                <h3>Nucleotide Transformer tasks</h3>
+                <p>Histone marks, enhancers, promoters, and splice-site classification under low sequence similarity.</p>
+                <ul>
+                  <li>Average metric: MCC</li>
+                  <li>Top-1 Jaccard similarity</li>
+                  <li>16/18 top-two finishes</li>
+                </ul>
+              </article>
+              <article class="benchmark-card benchmark-card-blue reveal" data-delay="2">
+                <div class="benchmark-head">
+                  <span>GB-DS</span>
+                  <strong>7</strong>
+                </div>
+                <h3>Genomic Benchmark tasks</h3>
+                <p>Human regulatory, enhancer, promoter, coding, and cross-species tasks with varied sequence lengths.</p>
+                <ul>
+                  <li>Average metric: accuracy</li>
+                  <li>Original labels retained</li>
+                  <li>4/7 first- or second-place finishes</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+
+          <div class="protocol reveal">
+            <div class="protocol-title">
+              <p class="mini-label">Split protocol</p>
+              <h3>Similarity-aware by construction</h3>
+            </div>
+            <ol>
+              <li><span>1</span>Merge original task splits</li>
+              <li><span>2</span>Estimate top-1 Jaccard similarity with Dashing</li>
+              <li><span>3</span>Reserve the lowest-similarity 20%</li>
+              <li><span>4</span>Stratify evenly into validation and test</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light" id="results">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker"><span>04</span> Results</p>
+            <h2>Higher accuracy with a <em>fraction of the model.</em></h2>
+            <p>
+              ShiftGeno leads both benchmark families on average. The gains do not come from scale or large-model
+              pretraining: the full end-to-end model contains only 1.87 million parameters.
+            </p>
+          </div>
+
+          <div class="score-grid">
+            <article class="score-card reveal">
+              <div class="score-heading">
+                <div><span>NT-DS</span><h3>Average test MCC</h3></div>
+                <strong>0.532</strong>
+              </div>
+              <div class="bar-chart" role="group" aria-label="Average NT-DS MCC comparison">
+                <div class="bar-row best"><span>ShiftGeno</span><div><i style="width:100%"></i></div><strong>0.532</strong></div>
+                <div class="bar-row"><span>Enformer</span><div><i style="width:85.9%"></i></div><strong>0.457</strong></div>
+                <div class="bar-row"><span>LucaOne</span><div><i style="width:76.1%"></i></div><strong>0.405</strong></div>
+                <div class="bar-row"><span>JanusDNA</span><div><i style="width:67.1%"></i></div><strong>0.357</strong></div>
+                <div class="bar-row"><span>NT-v2</span><div><i style="width:65.2%"></i></div><strong>0.347</strong></div>
+              </div>
+              <p class="score-note"><strong>+16.4%</strong> relative improvement over the second-best average.</p>
+            </article>
+
+            <article class="score-card score-card-blue reveal" data-delay="1">
+              <div class="score-heading">
+                <div><span>GB-DS</span><h3>Average test accuracy</h3></div>
+                <strong>0.804</strong>
+              </div>
+              <div class="bar-chart" role="group" aria-label="Average GB-DS accuracy comparison">
+                <div class="bar-row best"><span>ShiftGeno</span><div><i style="width:100%"></i></div><strong>0.804</strong></div>
+                <div class="bar-row"><span>Enformer</span><div><i style="width:93.5%"></i></div><strong>0.752</strong></div>
+                <div class="bar-row"><span>DNABERT-2</span><div><i style="width:85.9%"></i></div><strong>0.691</strong></div>
+                <div class="bar-row"><span>LucaOne</span><div><i style="width:83.8%"></i></div><strong>0.674</strong></div>
+                <div class="bar-row"><span>NT-v2</span><div><i style="width:83.7%"></i></div><strong>0.673</strong></div>
+              </div>
+              <p class="score-note"><strong>+6.9%</strong> relative improvement over the second-best average.</p>
+            </article>
+          </div>
+
+          <div class="result-figures">
+            <figure class="paper-figure reveal">
+              <button class="figure-button zoomable" type="button" data-full="assets/images/mask-robustness.png" data-caption="Robustness under random N-mask perturbations on promoter_tata.">
+                <img src="assets/images/mask-robustness.png" alt="Line chart of test MCC under increasing random N-mask ratios" loading="lazy">
+                <span class="zoom-hint">Open figure</span>
+              </button>
+              <figcaption>
+                <span>Robustness</span>
+                At 40% masking, ShiftGeno retains 0.511 MCC versus 0.322 for the next-best model.
+              </figcaption>
+            </figure>
+            <figure class="paper-figure reveal" data-delay="1">
+              <button class="figure-button zoomable" type="button" data-full="assets/images/parameter-counts.png" data-caption="Parameter-count comparison between ShiftGeno and genomic foundation-model baselines.">
+                <img src="assets/images/parameter-counts.png" alt="Log-scale bar chart comparing model parameter counts" loading="lazy">
+                <span class="zoom-hint">Open figure</span>
+              </button>
+              <figcaption>
+                <span>Efficiency</span>
+                ShiftGeno is ≈266× smaller than NT-v2 and ≈845× smaller than LucaOne.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-analysis" id="analysis">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker"><span>05</span> Analysis</p>
+            <h2>The model highlights <em>biological signal</em> and separates representation roles.</h2>
+            <p>
+              Attribution and representation analyses probe what the model uses—not only whether its prediction is correct.
+            </p>
+          </div>
+
+          <div class="analysis-block reveal">
+            <div class="analysis-copy">
+              <p class="mini-label">Biological attribution</p>
+              <h3>Known splice-donor patterns emerge from pixel-level evidence.</h3>
+              <p>
+                Integrated Gradients highlights <strong>GGTAAG</strong> and <strong>GGTAAT</strong> fragments in positive
+                donor samples. Both contain the canonical GT dinucleotide associated with 5′ splice donor sites,
+                showing that predictions concentrate on plausible local sequence evidence.
+              </p>
+            </div>
+            <figure class="paper-figure">
+              <button class="figure-button zoomable" type="button" data-full="assets/images/integrated-gradients.png" data-caption="Integrated Gradients maps for positive splice-site donor samples.">
+                <img src="assets/images/integrated-gradients.png" alt="Integrated Gradients attribution maps over rendered splice-site donor DNA" loading="lazy">
+                <span class="zoom-hint">Open figure</span>
+              </button>
+              <figcaption><span>Interpretability</span> Green intensity marks base-level attribution; red boxes mark emphasized donor contexts.</figcaption>
+            </figure>
+          </div>
+
+          <div class="analysis-block analysis-block-reverse reveal">
+            <div class="analysis-copy">
+              <p class="mini-label">Feature disentanglement</p>
+              <h3>Invariant and spurious branches occupy distinct geometries.</h3>
+              <p>
+                Joint t-SNE projections show separation between invariant features <i>z</i><sub>i</sub> and spurious
+                features <i>z</i><sub>s</sub> across representative NT-DS and GB-DS tasks. The result provides
+                qualitative evidence that the complementary branches learn different roles.
+              </p>
+            </div>
+            <figure class="paper-figure">
+              <button class="figure-button zoomable" type="button" data-full="assets/images/representation-disentanglement.png" data-caption="Joint t-SNE projections of invariant and spurious ShiftGeno features across representative tasks.">
+                <img src="assets/images/representation-disentanglement.png" alt="t-SNE plots of invariant and spurious representations across genomic tasks" loading="lazy">
+                <span class="zoom-hint">Open figure</span>
+              </button>
+              <figcaption><span>Representation</span> Orange denotes invariant features; green denotes spurious features.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-final">
+        <div class="container final-grid">
+          <div class="final-copy reveal">
+            <p class="section-kicker"><span>06</span> Takeaway</p>
+            <h2>Visual DNA offers a compact path to <em>distribution-aware genomics.</em></h2>
+            <p>
+              ShiftGeno turns genomic modeling into a visual learning problem and explicitly isolates the features
+              that should survive distribution change. The result is stronger low-similarity generalization,
+              perturbation robustness, and biologically meaningful attribution in a 1.87M-parameter model.
+            </p>
+            <a class="button button-primary" href="https://github.com/mapengsen/ShiftGeno">Explore the repository</a>
+          </div>
+
+          <aside class="citation-card reveal" data-delay="1">
+            <div class="citation-head">
+              <div>
+                <p class="mini-label">Citation</p>
+                <h3>BibTeX</h3>
+              </div>
+              <button class="copy-button" type="button" data-copy-button>Copy</button>
+            </div>
+            <pre><code id="bibtex">@misc{anonymous2026shiftgeno,
+  title  = {Toward Robust Genomic Prediction under
+            Distribution Shifts via Visual DNA Modeling},
+  author = {Anonymous},
+  year   = {2026},
+  url    = {https://github.com/mapengsen/ShiftGeno}
+}</code></pre>
+            <p class="citation-note">Anonymous-submission metadata; replace with final publication details when available.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <a class="brand brand-footer" href="#top">
+            <span class="brand-mark" aria-hidden="true"><span>A</span><span>C</span><span>T</span><span>G</span></span>
+            <span>ShiftGeno</span>
+          </a>
+          <p>Toward robust genomic prediction under distribution shifts.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/mapengsen/ShiftGeno">GitHub</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+        </div>
+        <p>© <span data-year>2026</span> ShiftGeno</p>
+      </div>
+    </footer>
+
+    <dialog class="lightbox" data-lightbox>
+      <button class="lightbox-close" type="button" aria-label="Close figure" data-lightbox-close>×</button>
+      <div class="lightbox-content">
+        <img src="assets/images/method-overview.png" alt="Expanded research figure" data-lightbox-image>
+        <p data-lightbox-caption></p>
+      </div>
+    </dialog>
+  </body>
+</html>

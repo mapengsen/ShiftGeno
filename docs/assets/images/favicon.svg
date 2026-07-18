@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ShiftGeno">
+  <rect width="100" height="100" rx="24" fill="#10261b"/>
+  <rect x="17" y="17" width="30" height="30" rx="7" fill="#fff3e7"/>
+  <rect x="53" y="17" width="30" height="30" rx="7" fill="#eaf4fc"/>
+  <rect x="17" y="53" width="30" height="30" rx="7" fill="#eff8e7"/>
+  <rect x="53" y="53" width="30" height="30" rx="7" fill="#f4eefb"/>
+  <g font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle">
+    <text x="32" y="39" fill="#b36b22">A</text>
+    <text x="68" y="39" fill="#24618c">C</text>
+    <text x="32" y="75" fill="#3d7b2f">T</text>
+    <text x="68" y="75" fill="#6e528c">G</text>
+  </g>
+</svg>
